@@ -1,0 +1,8 @@
+-Wall
+-Wextra
+-Wpedantic
+-std=c11
+-Isrc
+-Isrc/calculator
+-Isrc/input
+-Isrc/ui

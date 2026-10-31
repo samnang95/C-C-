@@ -1,18 +1,19 @@
 CC           := cc
-CFLAGS       := -Wall -Wextra -std=c11 -g -Iinclude -MMD -MP
-LDFLAGS      := -lm
-
 APP_NAME     := calculator
 SRC_DIR      := src
-INC_DIR      := include
 TEST_DIR     := tests
 BUILD_DIR    := build
 OBJ_DIR      := $(BUILD_DIR)/obj
 TEST_BIN_DIR := $(BUILD_DIR)/tests
 
+MOD_DIRS     := $(patsubst %/.,%,$(wildcard $(SRC_DIR)/*/.))
+INC_FLAGS    := $(addprefix -I,$(SRC_DIR) $(MOD_DIRS))
+CFLAGS       := -Wall -Wextra -Wpedantic -std=c11 -g $(INC_FLAGS) -MMD -MP
+LDFLAGS      := -lm
+
 TARGET       := $(BUILD_DIR)/$(APP_NAME)
 
-SRCS         := $(wildcard $(SRC_DIR)/*.c)
+SRCS         := $(wildcard $(SRC_DIR)/*.c $(SRC_DIR)/*/*.c)
 OBJS         := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 LIB_OBJS     := $(filter-out $(OBJ_DIR)/main.o,$(OBJS))
 
@@ -32,15 +33,15 @@ $(TARGET): $(OBJS)
 	$(CC) $(OBJS) -o $@ $(LDFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR)/tests/%.o: $(TEST_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)/tests
+	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(TEST_BIN_DIR)/%: $(OBJ_DIR)/tests/%.o $(LIB_OBJS)
-	@mkdir -p $(TEST_BIN_DIR)
+	@mkdir -p $(dir $@)
 	$(CC) $^ -o $@ $(LDFLAGS)
 
 run: $(TARGET)
