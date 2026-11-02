@@ -1,0 +1,9 @@
+-Wall
+-Wextra
+-Wpedantic
+-std=c11
+-Isrc
+-Isrc/game
+-Isrc/input
+-Isrc/ui
+

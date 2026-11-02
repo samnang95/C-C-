@@ -1,0 +1,15 @@
+# Build artifacts
+build/*
+!build/.gitkeep
+*.o
+*.d
+*.out
+*.exe
+*.app
+*.dSYM/
+
+# macOS & Editor files
+.DS_Store
+.vscode/
+compile_commands.json
+
