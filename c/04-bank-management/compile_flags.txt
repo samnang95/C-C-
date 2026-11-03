@@ -1,0 +1,9 @@
+-Wall
+-Wextra
+-Wpedantic
+-std=c11
+-Isrc
+-Isrc/bank
+-Isrc/input
+-Isrc/ui
+
