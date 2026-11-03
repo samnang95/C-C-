@@ -1,0 +1,9 @@
+-Wall
+-Wextra
+-Wpedantic
+-std=c11
+-Isrc
+-Isrc/student
+-Isrc/input
+-Isrc/ui
+
