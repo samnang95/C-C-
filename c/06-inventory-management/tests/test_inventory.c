@@ -1,0 +1,11 @@
+#include <assert.h>
+#include <stdio.h>
+#include <string.h>
+#include "input/input.h"
+#include "inventory/inventory.h"
+#include "ui/display.h"
+#define TEST_PATH "build/test_inventory.csv"
+static Product product(int sku,const char *name,const char *category,int64_t price,int quantity){Product p={0};p.sku=sku;snprintf(p.name,sizeof(p.name),"%s",name);snprintf(p.category,sizeof(p.category),"%s",category);p.price_cents=price;p.quantity=quantity;return p;}
+static void test_inventory_operations(void){Inventory i;inventory_init(&i);assert(inventory_next_sku(&i)==1001);for(int x=1;x<=9;++x){char name[32];snprintf(name,sizeof(name),"Product %d",x);Product p=product(1000+x,name,"Office",x*100,10);assert(inventory_add(&i,&p)==INVENTORY_OK);}assert(i.count==9&&i.capacity>=16);assert(inventory_add(&i,&i.items[0])==INVENTORY_ERR_DUPLICATE_SKU);assert(product_matches(inventory_find_by_sku(&i,1001),"RODUCT"));assert(inventory_restock(&i,1001,5)==INVENTORY_OK);assert(inventory_sell(&i,1001,12)==INVENTORY_OK);assert(inventory_find_by_sku(&i,1001)->quantity==3);assert(inventory_sell(&i,1001,4)==INVENTORY_ERR_INSUFFICIENT_STOCK);assert(inventory_remove(&i,1005)==INVENTORY_OK&&inventory_find_by_sku(&i,1005)==NULL);Product invalid=product(0,"Bad","Office",1,0);assert(inventory_add(&i,&invalid)==INVENTORY_ERR_INVALID);inventory_free(&i);}
+static void test_persistence_and_money(void){Inventory out;inventory_init(&out);Product a=product(1001,"Keyboard","Electronics",4599,7),b=product(1002,"Notebook","Office",250,20);assert(inventory_add(&out,&a)==INVENTORY_OK&&inventory_add(&out,&b)==INVENTORY_OK);assert(inventory_storage_save(&out,TEST_PATH)==INVENTORY_OK);inventory_free(&out);Inventory in;inventory_init(&in);assert(inventory_storage_load(&in,TEST_PATH)==INVENTORY_OK&&in.count==2);assert(inventory_find_by_sku(&in,1001)->price_cents==4599);inventory_free(&in);remove(TEST_PATH);int64_t cents;assert(parse_money_cents("$12.50",&cents)&&cents==1250);assert(!parse_money_cents("12.345",&cents));char money[20];format_money(1250,money,sizeof(money));assert(!strcmp(money,"$12.50"));}
+int main(void){test_inventory_operations();test_persistence_and_money();puts("All inventory-management unit tests passed!");return 0;}
