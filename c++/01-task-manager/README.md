@@ -12,6 +12,12 @@ cmake --build build
 
 If CMake is not installed, build directly with `make` (or compile `src/main.cpp` with any C++17 compiler).
 
+```sh
+make run
+```
+
+`make run` builds the program if needed, then starts it.
+
 On Windows the executable is normally `build\\Debug\\task_manager.exe` or `build\\task_manager.exe`.
 
 ## Commands
