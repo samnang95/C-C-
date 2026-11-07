@@ -1,14 +1,14 @@
 CXX ?= c++
-CXXFLAGS ?= -std=c++17 -Wall -Wextra -Wpedantic
+CXXFLAGS ?= -std=c++17 -Wall -Wextra -Wpedantic -Iinclude
 TARGET := task_manager
-SOURCE := src/main.cpp
+SOURCES := src/main.cpp src/Task.cpp src/TaskManager.cpp src/ConsoleUI.cpp
 
 .PHONY: all run clean
 
 all: $(TARGET)
 
-$(TARGET): $(SOURCE)
-	$(CXX) $(CXXFLAGS) $(SOURCE) -o $(TARGET)
+$(TARGET): $(SOURCES)
+	$(CXX) $(CXXFLAGS) $(SOURCES) -o $(TARGET)
 
 run: $(TARGET)
 	./$(TARGET)
