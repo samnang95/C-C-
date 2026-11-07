@@ -1,0 +1,22 @@
+# macOS system files
+.DS_Store
+**/.DS_Store
+
+# Editor settings
+.vscode/
+
+# Build artifacts & binary executables
+build/
+task_manager
+library_management
+*.o
+*.d
+*.out
+*.exe
+*.dSYM/
+
+# Local databases & run data
+*.db
+data/*.csv
+!data/.gitkeep
+data/*.dat
