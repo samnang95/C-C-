@@ -1,4 +1,4 @@
-#include "TaskManager.hpp"
+#include "task/TaskManager.hpp"
 
 #include <algorithm>
 #include <charconv>
@@ -9,7 +9,6 @@ namespace taskmgr {
 
 namespace {
 
-// Escape field separators and newlines so the plain-text database can safely store user input.
 std::string escapeField(std::string_view value) {
     std::string escaped;
     for (char c : value) {

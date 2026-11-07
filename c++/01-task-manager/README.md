@@ -1,24 +1,44 @@
-# Task Manager (C++)
+# 01 - Task Manager (C++)
 
-A small, dependency-free command-line task manager written in C++17. Tasks are saved in `tasks.db` in the directory where you run the program.
+A modular, dependency-free command-line task manager written in standard C++17 (`-Wall -Wextra -Wpedantic`). Tasks are saved in `data/tasks.db`.
 
-## Build
+## Project Structure
 
-```sh
-cmake -S . -B build
-cmake --build build
-./build/task_manager
+```text
+01-task-manager/
+├── build/                  # Compiled object files & binaries (gitignored)
+├── data/                   # Database files (tasks.db)
+├── src/
+│   ├── main.cpp            # Entry point & command loop
+│   ├── task/
+│   │   ├── Task.hpp        # Task struct & date/priority utilities
+│   │   ├── Task.cpp
+│   │   ├── TaskManager.hpp # TaskManager CRUD & file persistence
+│   │   └── TaskManager.cpp
+│   └── ui/
+│       ├── ConsoleUI.hpp   # CLI prompts, formatting & help menu
+│       └── ConsoleUI.cpp
+├── tests/
+│   └── test_task.cpp       # Unit tests for task validation, CRUD & DB I/O
+├── .gitignore
+├── Makefile
+└── README.md
 ```
 
-If CMake is not installed, build directly with `make` (or compile `src/main.cpp` with any C++17 compiler).
+## Build & Run
 
-```sh
+```bash
+cd c++/01-task-manager
+
+# Build and start the program
 make run
+
+# Run unit tests
+make test
+
+# Clean build artifacts
+make clean
 ```
-
-`make run` builds the program if needed, then starts it.
-
-On Windows the executable is normally `build\\Debug\\task_manager.exe` or `build\\task_manager.exe`.
 
 ## Commands
 
@@ -35,5 +55,3 @@ On Windows the executable is normally `build\\Debug\\task_manager.exe` or `build
 | `search <text>` | Search task titles, descriptions, and tags. |
 | `help` | Display commands. |
 | `quit` | Save and exit. |
-
-Dates use `YYYY-MM-DD`; leave the due-date prompt blank if it has no deadline. Valid priorities are `low`, `medium`, and `high`.

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Task.hpp"
+#include "task/Task.hpp"
 
 #include <string>
 #include <string_view>
@@ -10,7 +10,7 @@ namespace taskmgr {
 
 class TaskManager {
 public:
-    explicit TaskManager(std::string dbFile = "tasks.db");
+    explicit TaskManager(std::string dbFile = "data/tasks.db");
 
     bool load();
     bool save() const;

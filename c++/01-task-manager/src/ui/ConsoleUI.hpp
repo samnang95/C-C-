@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Task.hpp"
-#include "TaskManager.hpp"
+#include "task/Task.hpp"
+#include "task/TaskManager.hpp"
 
 #include <string>
 #include <string_view>
