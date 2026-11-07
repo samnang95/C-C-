@@ -1,0 +1,8 @@
+-std=c++17
+-Wall
+-Wextra
+-Wpedantic
+-Isrc
+-Isrc/expense
+-Isrc/ui
+
