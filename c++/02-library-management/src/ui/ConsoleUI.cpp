@@ -15,6 +15,7 @@ void printHelp() {
               << "  borrow <id>                 Borrow a book\n"
               << "  return <id>                 Return a book\n"
               << "  remove <id>                 Remove a book\n"
+              << "  clear / reset               Clear the terminal screen\n"
               << "  help                        Show this help\n"
               << "  quit                        Save and exit\n\n";
 }

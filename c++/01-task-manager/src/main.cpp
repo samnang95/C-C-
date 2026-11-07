@@ -29,6 +29,8 @@ int main() {
 
         if (command == "help") {
             printHelp();
+        } else if (command == "clear" || command == "reset" || command == "cls") {
+            std::cout << "\033[2J\033[H" << std::flush;
         } else if (command == "add") {
             addTask(manager);
         } else if (command == "list") {

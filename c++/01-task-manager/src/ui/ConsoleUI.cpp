@@ -15,6 +15,7 @@ void printHelp() {
               << "  reopen <id>         Reopen a task\n"
               << "  delete <id>         Delete a task\n"
               << "  search <text>       Search titles, descriptions, and tags\n"
+              << "  clear / reset       Clear the terminal screen\n"
               << "  help                Show this help\n"
               << "  quit                Save and exit\n\n";
 }
