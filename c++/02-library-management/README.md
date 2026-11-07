@@ -1,21 +1,45 @@
 # Library Management (C++)
 
-A dependency-free C++17 command-line application for maintaining a small library catalogue. It stores its data in `books.db` in the directory where it runs.
+A modular, dependency-free C++17 command-line application for maintaining a library catalogue. It persists records in `data/books.db`.
 
-## Run
+## Project Structure
 
-From this directory:
-
-```sh
-make run
+```text
+02-library-management/
+├── build/
+├── data/
+├── src/
+│   ├── main.cpp
+│   ├── library/
+│   │   ├── Book.hpp
+│   │   ├── Book.cpp
+│   │   ├── Library.hpp
+│   │   └── Library.cpp
+│   └── ui/
+│       ├── ConsoleUI.hpp
+│       └── ConsoleUI.cpp
+├── tests/
+│   └── test_library.cpp
+├── .gitignore
+├── compile_flags.txt
+├── Makefile
+└── README.md
 ```
 
-Or build with CMake:
+## Build, Run & Test
 
 ```sh
-cmake -S . -B build
-cmake --build build
-./build/library_management
+# Build executable into build/library_management
+make
+
+# Run interactively
+make run
+
+# Run unit tests
+make test
+
+# Clean build artifacts
+make clean
 ```
 
 ## Commands
@@ -33,5 +57,3 @@ cmake --build build
 | `remove <id>` | Remove a book from the catalogue. |
 | `help` | Display command help. |
 | `quit` | Save and exit. |
-
-ISBN and category are optional. A borrower name is required when borrowing a book. You can enter `clear` or `reset` only after quitting the program and returning to your regular terminal prompt.
